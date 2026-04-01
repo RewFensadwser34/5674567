@@ -1,0 +1,491 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <title>User Profile | RiftMc.Club</title>
+    <link href="/templates/209/css/style.min.css" rel="stylesheet">
+    <link rel="stylesheet" href="css/materialdesignicons.min.css" crossorigin="anonymous" referrerpolicy="no-referrer">
+    <link rel="shortcut icon" href="images/7c704515-7bc8-401f-8656-fe760d5838c1__1_-removebg-preview.png">
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin="">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css" crossorigin="anonymous" referrerpolicy="no-referrer">
+    <link href="https://fonts.googleapis.com/css2?family=Raleway:ital,wght@0,100;0,200;0,300;0,400;0,500;0,600;0,700;0,800;0,900;1,100;1,200;1,300;1,400;1,500;1,600;1,700;1,800;1,900&display=swap" rel="stylesheet">
+    
+    <style>
+        body {
+            color: silver;
+            line-height: normal;
+            font-family: 'Raleway', sans-serif;
+            font-style: normal;
+            background: linear-gradient(135deg, #0f0f0f 0%, #1a1a2e 100%);
+            min-height: 100vh;
+        }
+
+        .page-wrapper {
+            min-height: 100vh;
+            padding: 0;
+            position: relative;
+            overflow-x: hidden;
+        }
+
+        .profile-bg {
+            position: fixed;
+            top: 0;
+            left: 0;
+            right: 0;
+            bottom: 0;
+            background: url('images/519f877c-7c89-43e9-add5-e9abf8f45540.png');
+            background-size: cover;
+            background-position: center;
+            background-attachment: fixed;
+            opacity: 0.1;
+            z-index: -1;
+        }
+
+        .profile-container {
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 40px 20px;
+            position: relative;
+            z-index: 1;
+        }
+
+        .profile-header {
+            display: flex;
+            align-items: center;
+            gap: 30px;
+            margin-bottom: 40px;
+            background: rgba(30, 30, 46, 0.8);
+            backdrop-filter: blur(10px);
+            padding: 30px;
+            border-radius: 20px;
+            border: 1px solid rgba(153, 50, 204, 0.3);
+        }
+
+        .profile-avatar-section {
+            position: relative;
+        }
+
+        .profile-avatar {
+            width: 150px;
+            height: 150px;
+            border-radius: 20px;
+            border: 4px solid #9932cc;
+            box-shadow: 0 0 20px rgba(153, 50, 204, 0.4);
+            transition: transform 0.3s ease;
+        }
+
+        .profile-avatar:hover {
+            transform: scale(1.05);
+        }
+
+        .status-indicator {
+            position: absolute;
+            bottom: 10px;
+            right: 10px;
+            width: 20px;
+            height: 20px;
+            background: #4caf50;
+            border-radius: 50%;
+            border: 3px solid #1e1e1e;
+        }
+
+        .profile-info-section {
+            flex: 1;
+        }
+
+        .profile-name {
+            color: white;
+            font-size: 36px;
+            font-weight: 900;
+            margin-bottom: 10px;
+            text-shadow: 2px 2px 8px rgba(0,0,0,0.7);
+        }
+
+        .profile-username {
+            color: #9932cc;
+            font-size: 18px;
+            font-weight: 600;
+            margin-bottom: 20px;
+            display: flex;
+            align-items: center;
+            gap: 10px;
+        }
+
+        .profile-badges {
+            display: flex;
+            gap: 10px;
+            flex-wrap: wrap;
+            margin-bottom: 20px;
+        }
+
+        .badge {
+            background: linear-gradient(135deg, #9932cc, #7b1fa2);
+            color: white;
+            padding: 6px 12px;
+            border-radius: 15px;
+            font-size: 12px;
+            font-weight: 700;
+            text-transform: uppercase;
+            letter-spacing: 0.5px;
+            box-shadow: 0 4px 8px rgba(153, 50, 204, 0.3);
+        }
+
+        .badge.vip {
+            background: linear-gradient(135deg, #ffd700, #ffb300);
+        }
+
+        .badge.admin {
+            background: linear-gradient(135deg, #ff4757, #c62828);
+        }
+
+        .stats-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+            gap: 25px;
+            margin-bottom: 40px;
+        }
+
+        .stat-card {
+            background: rgba(30, 30, 46, 0.6);
+            backdrop-filter: blur(10px);
+            padding: 25px;
+            border-radius: 15px;
+            border: 1px solid rgba(255, 255, 255, 0.1);
+            transition: all 0.3s ease;
+            position: relative;
+            overflow: hidden;
+        }
+
+        .stat-card::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            right: 0;
+            height: 3px;
+            background: linear-gradient(90deg, #9932cc, #7b1fa2, #9932cc);
+            animation: shimmer 2s infinite;
+        }
+
+        @keyframes shimmer {
+            0% { transform: translateX(-100%); }
+            100% { transform: translateX(100%); }
+        }
+
+        .stat-card:hover {
+            transform: translateY(-5px);
+            border-color: rgba(3, 111, 255, 0.5);
+            box-shadow: 0 10px 25px rgba(153, 50, 204, 0.2);
+        }
+
+        .stat-header {
+            display: flex;
+            align-items: center;
+            justify-content: flex-start;
+            gap: 12px;
+            margin-bottom: 15px;
+        }
+
+        .stat-icon {
+            width: 40px;
+            height: 40px;
+            background: linear-gradient(135deg, #9932cc, #7b1fa2);
+            border-radius: 10px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            color: white;
+            font-size: 20px;
+        }
+
+        .stat-title {
+            color: white;
+            font-size: 16px;
+            font-weight: 600;
+            text-transform: uppercase;
+            letter-spacing: 1px;
+        }
+
+        .stat-value {
+            font-size: 32px;
+            font-weight: 900;
+            color: #9932cc;
+            margin-bottom: 8px;
+            text-shadow: 2px 2px 8px rgba(153, 50, 204, 0.3);
+        }
+
+        .stat-change {
+            display: flex;
+            align-items: center;
+            gap: 8px;
+            font-size: 12px;
+            color: #4caf50;
+        }
+
+        .stat-change.positive {
+            color: #4caf50;
+        }
+
+        .stat-change.negative {
+            color: #f44336;
+        }
+
+        .progress-section {
+            margin-top: 40px;
+        }
+
+        .progress-card {
+            background: rgba(30, 30, 46, 0.6);
+            backdrop-filter: blur(10px);
+            padding: 30px;
+            border-radius: 15px;
+            border: 1px solid rgba(255, 255, 255, 0.1);
+        }
+
+        .progress-title {
+            color: white;
+            font-size: 18px;
+            font-weight: 700;
+            margin-bottom: 20px;
+            text-transform: uppercase;
+            letter-spacing: 1px;
+        }
+
+        .progress-bar {
+            background: rgba(255, 255, 255, 0.1);
+            height: 8px;
+            border-radius: 4px;
+            overflow: hidden;
+            margin-bottom: 10px;
+        }
+
+        .progress-fill {
+            height: 100%;
+            background: linear-gradient(90deg, #9932cc, #7b1fa2);
+            border-radius: 4px;
+            transition: width 1s ease;
+        }
+
+        .progress-labels {
+            display: flex;
+            justify-content: space-between;
+            color: #999;
+            font-size: 12px;
+        }
+
+        .nav-buttons {
+            display: flex;
+            gap: 15px;
+            margin-top: 30px;
+            justify-content: center;
+        }
+
+        .nav-btn {
+            background: rgba(30, 30, 46, 0.8);
+            backdrop-filter: blur(10px);
+            color: white;
+            padding: 12px 24px;
+            border-radius: 25px;
+            text-decoration: none;
+            font-weight: 600;
+            border: 1px solid rgba(255, 255, 255, 0.2);
+            transition: all 0.3s ease;
+            display: flex;
+            align-items: center;
+            gap: 8px;
+        }
+
+        .nav-btn:hover {
+            background: rgba(153, 50, 204, 0.2);
+            border-color: #9932cc;
+            transform: translateY(-2px);
+        }
+
+        @media (max-width: 768px) {
+            .profile-header {
+                flex-direction: column;
+                text-align: center;
+                gap: 20px;
+            }
+            
+            .stats-grid {
+                grid-template-columns: 1fr;
+            }
+        }
+
+        .music-btn {
+            position: fixed;
+            bottom: 20px;
+            right: 20px;
+            background: linear-gradient(135deg, #9932cc, #7b1fa2);
+            color: white;
+            border: none;
+            padding: 12px 20px;
+            border-radius: 25px;
+            cursor: pointer;
+            font-weight: 600;
+            font-size: 14px;
+            z-index: 1000;
+            box-shadow: 0 4px 15px rgba(153, 50, 204, 0.4);
+            transition: all 0.3s ease;
+        }
+
+        .music-btn:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 6px 20px rgba(153, 50, 204, 0.5);
+        }
+
+        .music-btn.playing {
+            background: linear-gradient(135deg, #4caf50, #2e7d32);
+        }
+    </style>
+</head>
+<body>
+    <audio id="bg-music" autoplay loop>
+        <source src="images/London.mp3" type="audio/mpeg">
+    </audio>
+    <button id="music-toggle" class="music-btn" onclick="toggleMusic()">
+        <i class="fas fa-play"></i> Play Music
+    </button>
+    <div class="profile-bg"></div>
+    <div class="page-wrapper">
+        <div class="profile-container">
+            <!-- Profile Header -->
+            <div class="profile-header">
+                <div class="profile-avatar-section">
+                    <img src="images/7c704515-7bc8-401f-8656-fe760d5838c1__1_-removebg-preview.png" alt="Profile Avatar" class="profile-avatar">
+                    <div class="status-indicator"></div>
+                </div>
+                <div class="profile-info-section">
+                    <h1 class="profile-name">Enzo</h1>
+                    <div class="profile-username">
+                        <i class="mdi mdi-at"></i>
+                        @Enzo
+                    </div>
+                    <div class="profile-badges">
+                        <span class="badge admin">OWNER</span>
+                        <span class="badge vip">FOUNDER</span>
+                        <span class="badge">DEVELOPER</span>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Stats Grid -->
+            <div class="stats-grid">
+                <div class="stat-card">
+                    <div class="stat-header">
+                        <div class="stat-icon">
+                            <i class="fas fa-code"></i>
+                        </div>
+                        <div class="stat-title">C++ Dev</div>
+                    </div>
+                </div>
+                
+                <div class="stat-card">
+                    <div class="stat-header">
+                        <div class="stat-icon">
+                            <i class="fas fa-city"></i>
+                        </div>
+                        <div class="stat-title">New York</div>
+                    </div>
+                </div>
+                
+                <div class="stat-card">
+                    <div class="stat-header">
+                        <div class="stat-icon">
+                            <i class="fas fa-clock"></i>
+                        </div>
+                        <div class="stat-title">Na Time</div>
+                    </div>
+                </div>
+                
+                <div class="stat-card">
+                    <div class="stat-header">
+                        <div class="stat-icon">
+                            <i class="fab fa-discord"></i>
+                        </div>
+                        <div class="stat-title">Discord Wrldontopngl</div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Progress Section -->
+            <div class="progress-section">
+                <div class="progress-card">
+                    <h3 class="progress-title">Level Progress</h3>
+                    <div class="progress-bar">
+                        <div class="progress-fill" style="width: 75%;"></div>
+                    </div>
+                    <div class="progress-labels">
+                        <span>Level 42</span>
+                        <span>Level 43</span>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Navigation Buttons -->
+            <div class="nav-buttons">
+                <a href="index.html" class="nav-btn">
+                    <i class="mdi mdi-home"></i>
+                    Back to Home
+                </a>
+                <a href="#" class="nav-btn">
+                    <i class="mdi mdi-cog"></i>
+                    Settings
+                </a>
+                <a href="#" class="nav-btn">
+                    <i class="mdi mdi-chart-line"></i>
+                    Statistics
+                </a>
+            </div>
+        </div>
+    </div>
+
+    <script src="js/jquery.min.js"></script>
+    <script>
+        $(document).ready(function() {
+            // Animate progress bars on load
+            setTimeout(function() {
+                $('.progress-fill').each(function() {
+                    const width = $(this).data('width') || $(this).css('width');
+                    $(this).css('width', '0%');
+                    setTimeout(() => {
+                        $(this).css('width', width);
+                    }, 500);
+                });
+            }, 1000);
+
+            // Add hover effects
+            $('.stat-card').hover(
+                function() {
+                    $(this).find('.stat-icon').css('transform', 'scale(1.1) rotate(5deg)');
+                },
+                function() {
+                    $(this).find('.stat-icon').css('transform', 'scale(1) rotate(0deg)');
+                }
+            );
+        });
+
+        // Music toggle function
+        let isPlaying = false;
+        function toggleMusic() {
+            const audio = document.getElementById('bg-music');
+            const btn = document.getElementById('music-toggle');
+            
+            if (isPlaying) {
+                audio.pause();
+                btn.innerHTML = '<i class="fas fa-play"></i> Play Music';
+                btn.classList.remove('playing');
+            } else {
+                audio.play();
+                btn.innerHTML = '<i class="fas fa-pause"></i> Pause Music';
+                btn.classList.add('playing');
+            }
+            isPlaying = !isPlaying;
+        }
+    </script>
+</body>
+</html>

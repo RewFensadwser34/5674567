@@ -1,0 +1,11 @@
+{
+  "name": "rfitmc-club",
+  "version": "1.0.0",
+  "description": "RiftMc.Club Minecraft Server Website",
+  "scripts": {
+    "start": "npx serve ."
+  },
+  "keywords": ["minecraft", "server", "rfitmc"],
+  "author": "Enzo",
+  "license": "MIT"
+}
